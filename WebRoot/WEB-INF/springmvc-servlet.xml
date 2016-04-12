@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+      http://www.springframework.org/schema/context    
+      http://www.springframework.org/schema/context/spring-context.xsd    
+      http://www.springframework.org/schema/mvc    
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"> 
+      <context:annotation-config />
+    <mvc:annotation-driven /> 
+    <!-- 对定义包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->  
+    <context:component-scan base-package="com.clubmanager.admin.controller"></context:component-scan>  
+    <context:component-scan base-package="com.clubmanager.admin.service"></context:component-scan>
+    <context:component-scan base-package="com.clubmanager.bean"></context:component-scan>
+    <context:component-scan base-package="com.clubmanager.dao"></context:component-scan>
+  
+    <!-- 启动spring mvc的注解功能，完成请求和注解POJO的映射 -->  
+    <bean  
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+<!--         配置信息转换，将用@responsebody注解的返回值转换为json返回前台，编码为utf-8-->  
+        <property name="messageConverters">  
+            <list>  
+                <bean  
+                    class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+                    <property name="supportedMediaTypes">  
+                        <list>  
+                            <value>application/json;charset=UTF-8</value>  
+                        </list>  
+                    </property>  
+                </bean>  
+            </list>  
+        </property>  
+    </bean>  
+</beans>
